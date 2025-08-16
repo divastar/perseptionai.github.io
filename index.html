@@ -14,12 +14,14 @@
 
   <style>
     :root{
-      /* Soft-dark system */
-      --bg:#1b2130;          /* page background (not black) */
-      --panel:#1f2636;       /* section default */
-      --panelAlt:#232a3c;    /* alternate section */
-      --card:#273146;        /* cards lift from background */
-      --line:#2f3a52;        /* borders */
+      /* Soft-dark palette (lighter than pure dark) */
+      --bg:#1b2130;          /* page background */
+      --heroTop:#22314a;     /* hero gradient start */
+      --heroBot:#1b2334;     /* hero gradient end */
+      --panel:#1f2636;       /* section A */
+      --panelAlt:#232a3c;    /* section B */
+      --card:#2d3750;        /* cards (lighter than bg) */
+      --line:#384567;        /* borders */
       --muted:#a7b2c9;       /* secondary text */
       --text:#eef3fb;        /* main text */
       --accent:#7c3aed;      /* purple */
@@ -31,28 +33,25 @@
     *{box-sizing:border-box}
     html,body{margin:0;height:100%}
     body{
-      background: radial-gradient(1200px 700px at -10% -20%, rgba(34,211,238,.16), transparent),
-                  radial-gradient(900px 600px at 120% 0%, rgba(124,58,237,.14), transparent),
-                  var(--bg);
+      background:var(--bg);
       color:var(--text);
       font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
     }
-    img{max-width:100%;display:block}
     a{color:var(--accent2);text-decoration:none}
     a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
 
     /* Layout helpers */
     .wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
     section{padding:64px 0}
     .panel{background:var(--panel)}
     .panel-alt{background:var(--panelAlt)}
-    .stack{display:grid;gap:16px}
     .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 
     /* Header */
     header{
       position:sticky;top:0;z-index:20;
-      background:rgba(27,33,48,.75);backdrop-filter:blur(10px);
+      background:rgba(27,33,48,.78);backdrop-filter:blur(10px);
       border-bottom:1px solid var(--line)
     }
     .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
@@ -60,19 +59,24 @@
     .logo{width:18px;height:18px;border-radius:6px;background:linear-gradient(45deg,var(--accent),var(--accent2));box-shadow:0 0 14px var(--ring)}
     .menu{display:flex;gap:24px;flex-wrap:wrap}
     .menu a{color:#c7d2ea}
-    .menu a.active{color:#fff;font-weight:700}
-    .menu a{position:relative}
+    .menu a.active{color:#fff;font-weight:700;position:relative}
     .menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 
     /* Hero */
-    .hero{padding:96px 0 56px}
+    .hero{
+      background:radial-gradient(1200px 700px at -10% -20%, rgba(34,211,238,.12), transparent),
+                 radial-gradient(900px 600px at 120% 0%, rgba(124,58,237,.12), transparent),
+                 linear-gradient(180deg,var(--heroTop),var(--heroBot));
+      padding:96px 0 56px;
+    }
+    .hero .wrap{display:grid;gap:14px;justify-items:center;text-align:center}
     .pill{
       display:inline-block;margin-bottom:14px;padding:6px 12px;font-size:13.5px;font-weight:600;
-      border-radius:999px;background:#3a2f67b3;color:#efeaff;border:1px solid rgba(124,58,237,.6)
+      border-radius:999px;background:#3a2f67b3;color:#efeaff;border:1px solid rgba(124,58,237,.5)
     }
     h1{font-size:clamp(38px,7vw,60px);line-height:1.07;letter-spacing:-0.02em;margin:0 0 10px}
     .sub{color:var(--muted);font-size:18px;max-width:760px}
-    .hero .wrap{display:grid;gap:14px;justify-items:center;text-align:center}
+
     .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -86,9 +90,13 @@
     }
     .btn:active{transform:scale(.99)}
 
-    /* KPI tiles (lighter than bg) */
+    /* KPI tiles (lighter + soft ring) */
     .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
-    .tile{background:#2a344b;border:1px solid #344060;border-radius:14px;text-align:center;padding:14px 16px}
+    .tile{
+      background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.02)), var(--card);
+      border:1px solid var(--line); border-radius:14px; text-align:center; padding:14px 16px;
+      box-shadow:0 8px 24px rgba(0,0,0,.18)
+    }
     .num{font-size:24px;font-weight:800}
     .muted{color:#a6b3d1;font-size:12px}
 
@@ -96,7 +104,7 @@
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:18px}
     .card h3{margin:0 0 8px}
     .tag{color:#9fb1d9;font-size:12px}
-    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid #334061;margin-bottom:10px}
+    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid #3a4766;margin-bottom:10px}
 
     /* Articles: list-like on mobile, 2-col on desktop */
     #articles .grid{grid-template-columns:1fr}
@@ -141,7 +149,7 @@
     </div>
   </header>
 
-  <!-- HERO (soft, airy) -->
+  <!-- HERO -->
   <section class="hero">
     <div class="wrap">
       <span class="pill">Computer Vision • Deep Learning • MLOps</span>
@@ -160,7 +168,7 @@
   </section>
 
   <!-- PROJECTS (lighter panel) -->
-  <section class="panel">
+  <section class="panel" id="projects">
     <div class="wrap">
       <h2 style="margin:0 0 8px">Featured Projects</h2>
       <p class="tag">Problem → Approach → Result. Short and scannable, with links.</p>
@@ -209,7 +217,7 @@
     </div>
   </section>
 
-  <!-- SERVICES (lighter panel again) -->
+  <!-- SERVICES -->
   <section class="panel" id="services">
     <div class="wrap">
       <h2 style="margin:0 0 8px">Consulting & Services</h2>
@@ -221,7 +229,7 @@
     </div>
   </section>
 
-  <!-- CONTACT (alt tone) -->
+  <!-- CONTACT -->
   <section class="panel-alt" id="contact">
     <div class="wrap">
       <h2 style="margin:0 0 8px">Get in touch</h2>
@@ -232,8 +240,10 @@
         </div>
         <div class="card">
           <h3>Social</h3>
-          <p><a href="https://github.com/REPLACE_WITH_USERNAME" target="_blank" rel="noopener">GitHub</a> ·
-             <a href="https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/" target="_blank" rel="noopener">LinkedIn</a></p>
+          <p>
+            <a href="https://github.com/REPLACE_WITH_USERNAME" target="_blank" rel="noopener">GitHub</a> ·
+            <a href="https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/" target="_blank" rel="noopener">LinkedIn</a>
+          </p>
         </div>
         <div class="card">
           <h3>Calendly</h3>
@@ -267,4 +277,4 @@
     sections.forEach(s=>obs.observe(s));
   </script>
 </body>
-</html> 
+</html>
