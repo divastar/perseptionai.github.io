@@ -1,7 +1,3 @@
-<!-- ==========================
- index.html for perseptionai.com
- Modern, fast, one-file portfolio/blog/consulting site for a CV/AI engineer
-=========================== -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,44 +14,100 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
-      --bg:#0e0f17; --panel:#14172a; --muted:#99a3b3; --text:#e6ebf1; --accent:#7c3aed; --accent-2:#22d3ee; --ring:rgba(124,58,237,.35);
+      --bg:#0e0f17; --panel:#14172a; --muted:#99a3b3; --text:#e6ebf1;
+      --accent:#7c3aed; --accent-2:#22d3ee; --ring:rgba(124,58,237,.35);
       --max:1100px; --rad:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:radial-gradient(1200px 800px at 10% -10%, rgba(124,58,237,.15), transparent),
-      radial-gradient(900px 700px at 110% 10%, rgba(34,211,238,.12), transparent), var(--bg); color:var(--text); font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    html,body{
+      margin:0; height:100%;
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(124,58,237,.15), transparent),
+        radial-gradient(900px 700px at 110% 10%, rgba(34,211,238,.12), transparent),
+        var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif
+    }
     a{color:var(--accent-2); text-decoration:none}
     a:hover{text-decoration:underline}
-    header{position:sticky;top:0;background:rgba(14,15,23,.6);backdrop-filter:blur(10px);border-bottom:1px solid #22263f; z-index:20}
+
+    /* Header / nav */
+    header{
+      position:sticky; top:0; z-index:20;
+      background:rgba(14,15,23,.6); backdrop-filter:blur(10px);
+      border-bottom:1px solid #22263f;
+    }
     .wrap{max-width:var(--max); margin:0 auto; padding:0 16px}
     .nav{display:flex;align-items:center;justify-content:space-between; height:64px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-    .brand .dot{width:10px;height:10px;border-radius:50%;background:linear-gradient(45deg,var(--accent),var(--accent-2)); box-shadow:0 0 16px var(--ring)}
-    .menu{display:flex;gap:18px}
-    .menu a{color:var(--muted)}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px; margin-right:12px}
+    .brand .dot{width:10px;height:10px;border-radius:50%;
+      background:linear-gradient(45deg,var(--accent),var(--accent-2));
+      box-shadow:0 0 16px var(--ring)}
+    .menu{display:flex;gap:22px}              /* more space so it doesn't stick to brand */
+    .menu a{color:var(--muted); padding:0 4px}
+
+    /* Hero */
     .hero{padding:80px 0 40px; text-align:center}
     .hero h1{font-size:clamp(36px,6vw,56px); margin:0 0 10px; line-height:1.05}
     .sub{color:var(--muted); font-size:18px}
-    .cta{margin-top:24px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap}
-    .btn{display:inline-block; padding:12px 18px; border-radius:12px; border:1px solid #27304f; background:#151a31; color:#e6ebf1}
-    .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-color:transparent; color:#0f1020; font-weight:700}
-    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+    /* Fixes you asked for — higher contrast pill + bigger buttons */
+    .pill{
+      display:inline-block;
+      padding:6px 12px;
+      font-size:13.5px; font-weight:600;
+      border-radius:999px;
+      background:rgba(124,58,237,.28);     /* darker background */
+      color:#efeaff;                        /* brighter text */
+      border:1px solid rgba(124,58,237,.65);
+      box-shadow:0 2px 10px rgba(124,58,237,.25);
+    }
+    .cta{margin-top:24px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .btn{
+      display:inline-block; padding:14px 20px; font-size:16px;
+      border-radius:14px; border:1px solid #27304f; background:#151a31; color:#e6ebf1; font-weight:600
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      border-color:transparent; color:#0c0f1e;
+      box-shadow:0 6px 16px rgba(34,211,238,.25), 0 2px 6px rgba(0,0,0,.25)
+    }
+    .btn:hover{filter:brightness(1.05)}
+
     section{padding:48px 0}
-    .card{background:linear-gradient(180deg,#12152a,#0e1023); border:1px solid #252a46; border-radius:var(--rad); padding:20px; box-shadow:var(--shadow)}
+    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{
+      background:linear-gradient(180deg,#12152a,#0e1023);
+      border:1px solid #252a46; border-radius:var(--rad); padding:20px; box-shadow:var(--shadow)
+    }
     .card h3{margin:0 0 8px}
-    .pill{display:inline-block; padding:4px 10px; border-radius:999px; background:rgba(124,58,237,.16); color:#cabdff; border:1px solid rgba(124,58,237,.35); font-size:12px}
+    .tag{font-size:12px;color:#a7b0c6}
+    .imgph{
+      height:150px;border-radius:10px;background:linear-gradient(135deg,#1e2240,#1b2038);
+      border:1px dashed #343a62;display:flex;align-items:center;justify-content:center;color:#7983a4
+    }
+
+    /* KPI */
     .kpi{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:24px}
     .kpi .tile{padding:14px 16px; background:#111428; border:1px solid #232845; border-radius:12px; text-align:center}
     .kpi .num{font-size:24px; font-weight:800}
-    .list{display:grid; gap:12px}
+
     footer{padding:28px 0; border-top:1px solid #212645; color:#8f98ad}
     .social{display:flex; gap:14px; justify-content:center}
-    .tag{font-size:12px;color:#a7b0c6}
-    .imgph{height:150px;border-radius:10px;background:linear-gradient(135deg,#1e2240,#1b2038);border:1px dashed #343a62;display:flex;align-items:center;justify-content:center;color:#7983a4}
-    @media (max-width:700px){.kpi{grid-template-columns:1fr 1fr}}
+
+    /* Mobile tweaks: full-width buttons + flexible menu */
+    @media (max-width:480px){
+      .btn{width:100%; justify-content:center; font-size:17px; padding:16px 22px}
+      .menu{flex-wrap:wrap; row-gap:8px}
+    }
+    @media (max-width:700px){
+      .kpi{grid-template-columns:1fr 1fr}
+    }
   </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,9 +142,9 @@
         <a class="btn" href="#contact">Hire Me</a>
       </div>
       <div class="kpi">
-        <div class="tile"><div class="num">10+ </div><div class="tag">Years in CV/AI</div></div>
-        <div class="tile"><div class="num">25+ </div><div class="tag">Deployed Models</div></div>
-        <div class="tile"><div class="num">∞ </div><div class="tag">Curiosity</div></div>
+        <div class="tile"><div class="num">10+</div><div class="tag">Years in CV/AI</div></div>
+        <div class="tile"><div class="num">25+</div><div class="tag">Deployed Models</div></div>
+        <div class="tile"><div class="num">∞</div><div class="tag">Curiosity</div></div>
       </div>
     </section>
 
@@ -125,7 +177,7 @@
 
     <section id="articles">
       <h2>Latest Articles</h2>
-      <div class="list" style="margin-top:16px">
+      <div class="grid" style="margin-top:16px">
         <div class="card">
           <h3>Diffusion Models for Tracking — When & Why</h3>
           <p class="tag">Theory → practice</p>
@@ -159,7 +211,8 @@
         </div>
         <div class="card">
           <h3>Social</h3>
-          <p><a href="https://github.com/REPLACE_WITH_USERNAME" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/" target="_blank" rel="noopener">LinkedIn</a></p>
+          <p><a href="https://github.com/REPLACE_WITH_USERNAME" target="_blank" rel="noopener">GitHub</a> ·
+             <a href="https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/" target="_blank" rel="noopener">LinkedIn</a></p>
         </div>
         <div class="card">
           <h3>Calendly</h3>
@@ -175,119 +228,5 @@
     </div>
   </footer>
   <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
-</body>
-</html>
-
-
-<!-- ======================================
- index.html for aivintagemind.com
- Warm, editorial look for a heritage/AI storytelling & restoration theme
-======================================= -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI VintageMind — Heritage × AI</title>
-  <meta name="description" content="AI VintageMind — blending heritage with modern AI: restoration, colorization, and visual storytelling." />
-  <meta property="og:title" content="AI VintageMind — Heritage × AI" />
-  <meta property="og:description" content="Archival restoration, colorization, and AI-powered insights for the past." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aivintagemind.com/" />
-  <meta property="og:image" content="https://aivintagemind.com/assets/og-image.png" />
-  <link rel="icon" href="/assets/favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{--paper:#fbf7ef; --ink:#1f2a29; --accent:#8f5b34; --line:#e9e0cf; --muted:#5f6b68; --max:1100px}
-    *{box-sizing:border-box}
-    html,body{margin:0; background:linear-gradient(180deg,#fff, #fbf7ef); color:var(--ink)}
-    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
-    h1,h2,h3{font-family:"Playfair Display", serif; margin:0 0 8px}
-    a{color:#3a6c6d; text-decoration:none}
-    a:hover{text-decoration:underline}
-    header{border-bottom:1px solid var(--line); background:#fff8; backdrop-filter:blur(8px); position:sticky; top:0; z-index:10}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 16px}
-    .nav{display:flex; align-items:center; justify-content:space-between; height:70px}
-    .brand{display:flex; gap:10px; align-items:center; font-weight:700}
-    .brand .seal{width:14px;height:14px;border:1px solid var(--accent);border-radius:50%;background:conic-gradient(from 0deg, #f0e6d6, #fbf7ef); box-shadow:0 0 0 2px #f6eee0 inset}
-    .hero{padding:72px 0 30px; text-align:center}
-    .hero h1{font-size:clamp(34px,6vw,54px)}
-    .sub{color:var(--muted)}
-    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    section{padding:44px 0}
-    .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:18px; box-shadow:0 8px 24px rgba(0,0,0,.06)}
-    .note{background:#fff7ec; border:1px dashed #e8d8c0; color:#6e512f; padding:10px 14px; border-radius:10px; display:inline-block}
-    .imgph{height:150px;border-radius:10px;background:repeating-linear-gradient(45deg,#f4ecdf,#f4ecdf 10px,#efe6d7 10px,#efe6d7 20px); border:1px solid #eadfcd; display:flex; align-items:center; justify-content:center; color:#9a8466}
-    footer{border-top:1px solid var(--line); padding:28px 0; color:var(--muted)}
-  </style>
-</head>
-<body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand"><span class="seal"></span> AI VintageMind</div>
-      <nav class="menu"><a href="#work">Work</a> · <a href="#services">Services</a> · <a href="#stories">Stories</a> · <a href="#contact">Contact</a></nav>
-    </div>
-  </header>
-
-  <main class="wrap">
-    <section class="hero">
-      <h1>Where heritage meets AI.</h1>
-      <p class="sub">Restoration, colorization, and intelligent insights for archives, families, and museums.</p>
-      <div style="margin-top:16px" class="note">Now booking limited projects • Inquire below</div>
-    </section>
-
-    <section id="work">
-      <h2>Selected Work</h2>
-      <div class="grid" style="margin-top:16px">
-        <article class="card">
-          <div class="imgph">[ Before / After Placeholder ]</div>
-          <h3>Photo Restoration & Colorization</h3>
-          <p>Careful denoising, scratch removal, and historically-sensitive color workflows guided by AI.</p>
-        </article>
-        <article class="card">
-          <div class="imgph">[ Film / Frame Placeholder ]</div>
-          <h3>Frame-Accurate Film Enhancement</h3>
-          <p>Stabilization, super-resolution, and artifact reduction with human-in-the-loop QA.</p>
-        </article>
-        <article class="card">
-          <div class="imgph">[ Archive Placeholder ]</div>
-          <h3>Archive Intelligence</h3>
-          <p>Entity recognition, captions, and visual search across large photo collections.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="services">
-      <h2>Services</h2>
-      <div class="grid" style="margin-top:16px">
-        <div class="card"><h3>Family Heirlooms</h3><p>Digitize, restore, and present your family history with museum-quality output.</p></div>
-        <div class="card"><h3>Museum & Archive</h3><p>Processing pipelines, metadata enrichment, and researcher tools.</p></div>
-        <div class="card"><h3>Custom AI</h3><p>Tailored models for restoration, tagging, and retrieval with clear governance.</p></div>
-      </div>
-    </section>
-
-    <section id="stories">
-      <h2>Stories & Notes</h2>
-      <div class="grid" style="margin-top:16px">
-        <div class="card"><h3>Color With Care</h3><p>Why plausible historical color requires guidance and restraint — not just automation.</p><p><a href="#">Read</a></p></div>
-        <div class="card"><h3>Digitization Basics</h3><p>Scanning specs, file formats, and backups that protect the past.</p><p><a href="#">Read</a></p></div>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="grid" style="margin-top:16px">
-        <div class="card"><h3>Email</h3><p><a href="mailto:hello@aivintagemind.com">hello@aivintagemind.com</a></p></div>
-        <div class="card"><h3>Project Inquiry</h3><p>Please include a brief summary, sample images, and timeline.</p></div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="wrap">© <span id="yy"></span> AI VintageMind · All rights reserved</div>
-  </footer>
-  <script>document.getElementById('yy').textContent=new Date().getFullYear()</script>
 </body>
 </html>
