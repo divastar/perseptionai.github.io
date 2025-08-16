@@ -4,126 +4,114 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>PerseptionAI — Computer Vision & AI</title>
-  <meta name="description" content="PerseptionAI — portfolio, projects, articles, and consulting by a Computer Vision engineer." />
+  <meta name="description" content="Portfolio, projects, articles, and consulting by a Computer Vision engineer. Detection, Tracking, Re-ID, 3D, and deployment to edge/cloud." />
   <meta property="og:title" content="PerseptionAI — Computer Vision & AI" />
-  <meta property="og:description" content="Projects, articles, and consulting in computer vision, deep learning, and MLOps." />
+  <meta property="og:description" content="Practical vision systems that ship: detection, tracking, re-id, 3D, TensorRT/TFLite." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://perseptionai.com/" />
   <meta property="og:image" content="https://perseptionai.com/assets/og-image.png" />
   <link rel="icon" href="/assets/favicon.ico" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
-      --bg:#0e0f17; --panel:#14172a; --muted:#99a3b3; --text:#e6ebf1;
-      --accent:#7c3aed; --accent-2:#22d3ee; --ring:rgba(124,58,237,.35);
-      --max:1100px; --rad:16px; --shadow:0 10px 30px rgba(0,0,0,.35);
+      --bg:#0f1222; --muted:#9aa5bd; --text:#e7ecf4;
+      --accent:#7c3aed; --accent2:#22d3ee; --ring:rgba(124,58,237,.35);
+      --max:1100px; --rad:16px;
     }
     *{box-sizing:border-box}
-    html,body{
-      margin:0; height:100%;
-      background:
-        radial-gradient(1200px 800px at 10% -10%, rgba(124,58,237,.15), transparent),
-        radial-gradient(900px 700px at 110% 10%, rgba(34,211,238,.12), transparent),
-        var(--bg);
-      color:var(--text);
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif
-    }
-    a{color:var(--accent-2); text-decoration:none}
+    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    a{color:var(--accent2);text-decoration:none}
     a:hover{text-decoration:underline}
+    img{max-width:100%;display:block}
 
     /* Header / nav */
     header{
-      position:sticky; top:0; z-index:20;
-      background:rgba(14,15,23,.6); backdrop-filter:blur(10px);
-      border-bottom:1px solid #22263f;
+      position:sticky;top:0;z-index:20;
+      background:rgba(15,18,34,.65);backdrop-filter:blur(10px);
+      border-bottom:1px solid #20274b
     }
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 16px}
-    .nav{display:flex;align-items:center;justify-content:space-between; height:64px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px; margin-right:12px}
-    .brand .dot{width:10px;height:10px;border-radius:50%;
-      background:linear-gradient(45deg,var(--accent),var(--accent-2));
-      box-shadow:0 0 16px var(--ring)}
-    .menu{display:flex;gap:22px}              /* more space so it doesn't stick to brand */
-    .menu a{color:var(--muted); padding:0 4px}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
+    .logo{width:18px;height:18px;border-radius:6px;background:linear-gradient(45deg,var(--accent),var(--accent2));box-shadow:0 0 18px var(--ring)}
+    .menu{display:flex;gap:22px;flex-wrap:wrap}
+    .menu a{color:var(--muted);padding:2px 2px}
+    .menu a.active{color:#fff;font-weight:700}
+    .menu a.active::after{
+      content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px
+    }
+    .menu a{position:relative}
 
     /* Hero */
-    .hero{padding:80px 0 40px; text-align:center}
-    .hero h1{font-size:clamp(36px,6vw,56px); margin:0 0 10px; line-height:1.05}
-    .sub{color:var(--muted); font-size:18px}
-
-    /* Fixes you asked for — higher contrast pill + bigger buttons */
+    .hero{padding:96px 0 56px;text-align:center}
+    .hero h1{font-size:clamp(38px,7.5vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 10px}
+    .sub{color:var(--muted);font-size:18px;max-width:740px;margin:12px auto 0}
     .pill{
-      display:inline-block;
-      padding:6px 12px;
-      font-size:13.5px; font-weight:600;
-      border-radius:999px;
-      background:rgba(124,58,237,.28);     /* darker background */
-      color:#efeaff;                        /* brighter text */
-      border:1px solid rgba(124,58,237,.65);
-      box-shadow:0 2px 10px rgba(124,58,237,.25);
+      display:inline-block;margin-bottom:14px;padding:6px 12px;
+      font-size:13.5px;font-weight:600;border-radius:999px;
+      background:rgba(124,58,237,.28);color:#efeaff;border:1px solid rgba(124,58,237,.65);
+      box-shadow:0 2px 10px rgba(124,58,237,.25)
     }
-    .cta{margin-top:24px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap}
+    .cta{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .btn{
-      display:inline-block; padding:14px 20px; font-size:16px;
-      border-radius:14px; border:1px solid #27304f; background:#151a31; color:#e6ebf1; font-weight:600
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:16px 22px;font-size:17px;font-weight:600;border-radius:14px;
+      background:#151a31;border:1px solid rgba(255,255,255,.06);color:#e6ebf1;transition:filter .2s ease,transform .2s ease
     }
     .btn.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent-2));
-      border-color:transparent; color:#0c0f1e;
-      box-shadow:0 6px 16px rgba(34,211,238,.25), 0 2px 6px rgba(0,0,0,.25)
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      border-color:transparent;color:#0c0f1e;box-shadow:0 6px 16px rgba(34,211,238,.25),0 2px 6px rgba(0,0,0,.25)
     }
-    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:scale(.99)}
 
-    section{padding:48px 0}
-    .grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{
-      background:linear-gradient(180deg,#12152a,#0e1023);
-      border:1px solid #252a46; border-radius:var(--rad); padding:20px; box-shadow:var(--shadow)
-    }
+    section{padding:44px 0}
+    h2{font-size:clamp(22px,3.2vw,28px);letter-spacing:-0.01em;margin:0 0 8px}
+
+    /* KPI tiles */
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+    .tile{padding:14px 16px;background:#111427;border:1px solid #1f2546;border-radius:12px;text-align:center}
+    .num{font-size:24px;font-weight:800}
+    .tag{font-size:12px;color:#9fb1d9}
+
+    /* Cards (simpler, content-first) */
+    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+    .card{background:#111427;border:1px solid #1f2546;border-radius:var(--rad);padding:18px}
     .card h3{margin:0 0 8px}
-    .tag{font-size:12px;color:#a7b0c6}
-    .imgph{
-      height:150px;border-radius:10px;background:linear-gradient(135deg,#1e2240,#1b2038);
-      border:1px dashed #343a62;display:flex;align-items:center;justify-content:center;color:#7983a4
-    }
+    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid #28305a;margin-bottom:10px}
 
-    /* KPI */
-    .kpi{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:24px}
-    .kpi .tile{padding:14px 16px; background:#111428; border:1px solid #232845; border-radius:12px; text-align:center}
-    .kpi .num{font-size:24px; font-weight:800}
-
-    footer{padding:28px 0; border-top:1px solid #212645; color:#8f98ad}
-    .social{display:flex; gap:14px; justify-content:center}
-
-    /* Mobile tweaks: full-width buttons + flexible menu */
+    /* Articles: list-like on mobile, 2-col on desktop */
+    #articles .grid{grid-template-columns:1fr}
+    @media (min-width:860px){#articles .grid{grid-template-columns:1fr 1fr}}
     @media (max-width:480px){
-      .btn{width:100%; justify-content:center; font-size:17px; padding:16px 22px}
-      .menu{flex-wrap:wrap; row-gap:8px}
+      .btn{width:100%}
+      .menu{row-gap:8px}
+      .hero{padding:80px 0 44px}
     }
-    @media (max-width:700px){
-      .kpi{grid-template-columns:1fr 1fr}
-    }
+
+    footer{padding:28px 0;border-top:1px solid #1e2547;color:#8f98ad}
+    .social{display:flex;gap:14px;justify-content:center}
   </style>
 
   <script type="application/ld+json">
   {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "PerseptionAI",
-    "url": "https://perseptionai.com",
-    "jobTitle": "Computer Vision Engineer",
-    "sameAs": ["https://github.com/REPLACE_WITH_USERNAME","https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/"]
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"PerseptionAI",
+    "url":"https://perseptionai.com",
+    "jobTitle":"Computer Vision Engineer",
+    "sameAs":["https://github.com/REPLACE_WITH_USERNAME","https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/"]
   }
   </script>
 </head>
 <body>
   <header>
     <div class="wrap nav">
-      <div class="brand"><span class="dot"></span> PerseptionAI</div>
-      <nav class="menu">
+      <div class="brand"><span class="logo"></span> PerseptionAI</div>
+      <nav class="menu" id="nav">
         <a href="#projects">Projects</a>
         <a href="#articles">Articles</a>
         <a href="#services">Services</a>
@@ -133,7 +121,8 @@
   </header>
 
   <main class="wrap">
-    <section class="hero">
+    <!-- HERO -->
+    <section class="hero" id="top">
       <span class="pill">Computer Vision • Deep Learning • MLOps</span>
       <h1>From research to production-grade vision systems.</h1>
       <p class="sub">Detection • Tracking • Re-ID • 3D • Optimization (TensorRT / TFLite) — practical AI that ships.</p>
@@ -148,63 +137,66 @@
       </div>
     </section>
 
+    <!-- PROJECTS -->
     <section id="projects">
       <h2>Featured Projects</h2>
-      <div class="grid" style="margin-top:16px">
+      <p class="tag">Problem → Approach → Result. Short, scannable, with links.</p>
+      <div class="grid" style="margin-top:12px">
         <article class="card">
-          <div class="imgph">[ Demo / GIF Placeholder ]</div>
+          <img class="shot" src="assets/demo-reid.gif" alt="Demo: vehicle re-identification"/>
           <h3>Vehicle Re-Identification</h3>
-          <p class="tag">ResNet/OSNet · Triplet & CE loss · Real-world deployment</p>
-          <p>End-to-end pipeline for robust Re-ID across cameras with hard mining, domain adaptation, and on-edge optimization.</p>
+          <p class="tag">OSNet • Triplet/CE • Domain Adaptation</p>
+          <p>Cross-camera Re-ID with hard mining and on-edge INT8 deployment.</p>
           <p><a href="#">Case study</a> · <a href="#">GitHub</a></p>
         </article>
         <article class="card">
-          <div class="imgph">[ Demo / GIF Placeholder ]</div>
+          <img class="shot" src="assets/demo-tracking.gif" alt="Demo: multi-person tracking"/>
           <h3>People Tracking w/ Transformers</h3>
-          <p class="tag">DETR · GNN association · Kalman/IoU fusion</p>
-          <p>High-precision multi-target tracker with occlusion handling and online re-identification.</p>
+          <p class="tag">DETR • GNN association • Kalman/IoU fusion</p>
+          <p>Occlusion-robust MOT with online re-id, real-time on A100 & Jetson.</p>
           <p><a href="#">Article</a> · <a href="#">GitHub</a></p>
         </article>
         <article class="card">
-          <div class="imgph">[ Demo / GIF Placeholder ]</div>
+          <img class="shot" src="assets/demo-pnp.gif" alt="Demo: 3D pose & PnP"/>
           <h3>3D Pose & PnP Toolkit</h3>
-          <p class="tag">EPnP · BA · Depth priors</p>
-          <p>Geometry-aware learning components for fast and stable camera-pose estimation.</p>
+          <p class="tag">EPnP • BA • Depth priors</p>
+          <p>Geometry-aware PnP components; fast, stable camera-pose estimation.</p>
           <p><a href="#">Docs</a> · <a href="#">GitHub</a></p>
         </article>
       </div>
     </section>
 
+    <!-- ARTICLES -->
     <section id="articles">
       <h2>Latest Articles</h2>
-      <div class="grid" style="margin-top:16px">
-        <div class="card">
-          <h3>Diffusion Models for Tracking — When & Why</h3>
-          <p class="tag">Theory → practice</p>
-          <p>Bridging generative priors with MOT for crowded scenes and small objects.</p>
-          <p><a href="#">Read</a> · <a href="#">Share on LinkedIn</a></p>
-        </div>
-        <div class="card">
-          <h3>Productionizing CV Models: A Checklist</h3>
-          <p class="tag">MLOps</p>
-          <p>Metrics, drift, AB tests, observability, and on-device constraints.</p>
-          <p><a href="#">Read</a></p>
-        </div>
+      <div class="grid" style="margin-top:12px">
+        <article class="card">
+          <h3><a href="#">How I ship real-time tracking at 60 FPS</a></h3>
+          <p class="tag">MLOps • TensorRT • Benchmarking</p>
+          <p>Practical pipeline notes: data, eval, and the exact optimizations that matter.</p>
+        </article>
+        <article class="card">
+          <h3><a href="#">Re-ID in the wild: triplet vs softmax</a></h3>
+          <p class="tag">Re-ID • Losses • Domain shift</p>
+          <p>Hard mining, augmentations, and what finally moved the needle.</p>
+        </article>
       </div>
     </section>
 
+    <!-- SERVICES -->
     <section id="services">
       <h2>Consulting & Services</h2>
-      <div class="grid" style="margin-top:16px">
+      <div class="grid" style="margin-top:12px">
         <div class="card"><h3>Model Design & Training</h3><p>Custom detection, tracking, Re-ID, and segmentation models tailored to your data.</p></div>
-        <div class="card"><h3>Optimization</h3><p>Quantization, pruning, and deployment to TensorRT/TFLite/ONNXRuntime for edge or server.</p></div>
+        <div class="card"><h3>Optimization</h3><p>Quantization, pruning, deployment to TensorRT/TFLite/ONNXRuntime for edge or server.</p></div>
         <div class="card"><h3>Audits & Coaching</h3><p>Architecture reviews, experiment plans, and hands-on team mentoring.</p></div>
       </div>
     </section>
 
+    <!-- CONTACT -->
     <section id="contact">
       <h2>Get in touch</h2>
-      <div class="grid" style="margin-top:16px">
+      <div class="grid" style="margin-top:12px">
         <div class="card">
           <h3>Email</h3>
           <p><a href="mailto:hello@perseptionai.com">hello@perseptionai.com</a></p>
@@ -219,14 +211,33 @@
           <p><a href="#">Book a call</a> (optional)</p>
         </div>
       </div>
+      <p class="tag" style="margin-top:14px">Reply within 24h • Available for freelance & consulting</p>
     </section>
   </main>
 
   <footer>
     <div class="wrap">
-      <div class="social"><span>© <span id="y"></span> PerseptionAI</span> · <a href="#">Privacy</a></div>
+      <div class="social">© <span id="y"></span> PerseptionAI · <a href="#">Privacy</a></div>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Active nav link on scroll
+    const sections = [...document.querySelectorAll('main section')];
+    const links = [...document.querySelectorAll('#nav a')];
+    const map = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          links.forEach(l=>l.classList.remove('active'));
+          const id = e.target.id; if(map[id]) map[id].classList.add('active');
+        }
+      });
+    }, {rootMargin:'-40% 0px -55% 0px', threshold:[0,1]});
+    sections.forEach(s=>obs.observe(s));
+  </script>
 </body>
-</html> 
+</html>
