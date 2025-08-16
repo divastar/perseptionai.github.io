@@ -1,210 +1,247 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>PerseptionAI — Computer Vision & AI Consulting</title>
-  <meta name="description" content="Production-grade computer vision: Detection, Tracking, Re-ID, 3D, and deployment (TensorRT / TFLite). Freelance & consulting." />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-  <link rel="icon" href="/assets/favicon.ico" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PerseptionAI — Computer Vision Consultant</title>
+  <meta name="description" content="Production-grade computer vision. Detection, tracking, Re-ID, 3D, and model optimization (TensorRT/TFLite).">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3CradialGradient id='g' cx='50%25' cy='50%25' r='60%25'%3E%3Cstop stop-color='%237b5cff'/%3E%3Cstop offset='1' stop-color='%2300c2ff'/%3E%3C/radialGradient%3E%3Ccircle cx='32' cy='32' r='28' fill='url(%23g)'/%3E%3C/svg%3E">
   <style>
     :root{
-      /* Brand */
-      --accent:#6d28d9;       /* royal purple */
-      --accent-2:#06b6d4;     /* teal hint */
-      --bg:#f7f8fb;
-      --ink:#0f172a;
-      --muted:#5b6478;
-      --panel:#ffffff;
-      --panel-2:#f3f6fd;
-      --line:#e5eaf4;
-      --max:1120px;
-      --rad:16px;
+      --bg: #fcfdff;               /* base page */
+      --panel: #ffffff;            /* white panels */
+      --muted: #f5f7fb;            /* alternating section */
+      --text: #0e1320;
+      --text-dim: #4a5568;
+      --brand-1: #7b5cff;          /* purple */
+      --brand-2: #00c2ff;          /* cyan  */
+      --pill-bg: #e9e3ff;
+      --pill-stroke: #cfc6ff;
+      --stroke: rgba(15,23,42,.06);
+      --shadow: 0 6px 24px rgba(12, 20, 33, .06);
+      --radius: 16px;
+      --radius-lg: 20px;
+      --max: 1100px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0}
+    html,body{margin:0;padding:0}
     body{
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--ink); background:var(--bg);
-      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: var(--bg);
     }
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 18px}
-    header{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-    .nav{height:76px;display:flex;align-items:center;justify-content:space-between}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
-    .logo{width:18px;height:18px;border-radius:6px;background:linear-gradient(45deg,var(--accent),var(--accent-2))}
-    .menu{display:flex;gap:26px;flex-wrap:wrap}
-    .menu a{color:#475069}
-    .menu a.active{color:var(--ink);font-weight:700;position:relative}
-    .menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-12px;height:2px;background:var(--accent);border-radius:2px}
-
+    a{color:inherit;text-decoration:none}
+    /* Layout */
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter:saturate(140%) blur(8px);
+      background: color-mix(in srgb, var(--panel) 75%, transparent);
+      border-bottom:1px solid var(--stroke);
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; height:64px;}
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:700; letter-spacing:.2px;
+    }
+    .dot{
+      inline-size:20px; block-size:20px; border-radius:50%;
+      background:linear-gradient(135deg,var(--brand-1),var(--brand-2));
+      box-shadow:0 0 0 4px color-mix(in srgb, var(--brand-2) 10%, transparent);
+    }
+    .links{display:flex; gap:28px; font-weight:600; color:var(--text-dim)}
+    .links a{padding:4px 0; border-bottom:2px solid transparent}
+    .links a.active{color:var(--text); border-image:linear-gradient(90deg,var(--brand-1),var(--brand-2)) 1}
     /* Hero */
     .hero{
       background:
-        radial-gradient(60% 120% at 50% -10%, #ffffff 0%, #f4f7ff 50%, #eef3ff 100%);
-      padding:110px 0 50px;
+        radial-gradient(1200px 600px at 10% -10%, #eaf7ff 0, transparent 55%),
+        radial-gradient(900px 500px at 90% -20%, #efeaff 0, transparent 60%),
+        linear-gradient(#fbfcff, #f7f9fc);
+      border-bottom:1px solid var(--stroke);
     }
-    h1{margin:0;font-size:clamp(40px,7vw,64px);line-height:1.05;letter-spacing:-.02em}
-    .sub{max-width:760px;color:#4b5563;font-size:18px}
-    .pill{display:inline-block;margin:-6px 0 16px;padding:8px 14px;border-radius:999px;background:#efeafe;color:#5b21b6;border:1px solid #e9ddff;font-weight:600;font-size:13.5px}
-    .cta{display:flex;gap:14px;flex-wrap:wrap; margin-top:22px}
-    .btn{display:inline-flex;align-items:center;justify-content:center;padding:16px 24px;border-radius:14px;font-weight:800;border:1px solid var(--line);background:var(--panel);color:var(--ink);transition:transform .06s ease, filter .15s}
-    .btn.primary{background:var(--accent);color:#fff;border:none;box-shadow:0 14px 28px rgba(109,40,217,.18)}
-    .btn:hover{filter:brightness(.98)} .btn:active{transform:scale(.99)}
-
-    /* KPIs */
-    .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
-    .tile{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-    .num{font-size:26px;font-weight:800}
-    .muted{color:var(--muted);font-size:12px}
-
-    /* Trust bar */
-    .trust{background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-    .trust .wrap{display:flex;align-items:center;gap:24px;flex-wrap:wrap;justify-content:center;padding:22px 18px}
-    .trust span{color:#667085;font-size:13px;font-weight:600}
-    .trust img{height:22px;opacity:.75;filter:grayscale(1)}
-
-    /* Sections */
-    section{padding:78px 0}
-    .panel{background:var(--panel)}
-    .panel-2{background:var(--panel-2)}
-    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:#fff;border:1px solid var(--line);border-radius:var(--rad);padding:18px;box-shadow:0 10px 30px rgba(2,6,23,.05)}
-    .card h3{margin:0 0 8px}
-    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid var(--line);margin-bottom:10px}
-    footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;color:#64748b}
-
-    @media (max-width:540px){
-      .btn{width:100%}
-      .kpis{grid-template-columns:1fr}
+    .hero .wrap{padding:56px 20px 36px}
+    .pill{
+      display:inline-flex; gap:10px; align-items:center;
+      padding:10px 16px; border-radius:999px;
+      background:var(--pill-bg); border:1px solid var(--pill-stroke);
+      color:#553c9a; font-weight:600; letter-spacing:.2px;
+      box-shadow:inset 0 -1px 0 rgba(255,255,255,.7);
     }
+    h1{
+      font-size: clamp(32px, 6vw, 54px);
+      line-height:1.05; margin:18px 0 12px; letter-spacing:-0.5px;
+    }
+    .lede{color:var(--text-dim); font-size:clamp(16px, 2.6vw, 20px); max-width:900px}
+    .cta{display:flex; gap:14px; flex-wrap:wrap; margin:26px 0 6px}
+    .btn{
+      padding:14px 22px; border-radius:14px; font-weight:800; letter-spacing:.2px;
+      border:1px solid var(--stroke); background:var(--panel); color:var(--text);
+      box-shadow:var(--shadow);
+    }
+    .btn.primary{
+      border:0; color:white;
+      background:linear-gradient(90deg,var(--brand-1),var(--brand-2));
+      box-shadow:0 10px 24px rgba(0,140,255,.18), inset 0 -2px 0 rgba(255,255,255,.25);
+    }
+    .btn:hover{transform:translateY(-1px)}
+    /* KPI cards */
+    .kpis{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin:28px 0 8px}
+    .kpi{
+      background:var(--panel); border:1px solid var(--stroke); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:22px; text-align:center;
+    }
+    .kpi b{font-size:28px}
+    .kpi span{display:block; color:var(--text-dim); margin-top:6px}
+    /* Alternating sections */
+    section{padding:52px 0; border-top:1px solid var(--stroke)}
+    section.alt{background:var(--muted)}
+    h2{font-size: clamp(22px,4.2vw,32px); margin:0 0 18px}
+    .grid{display:grid; gap:16px}
+    @media(min-width:780px){ .grid.cols-3{grid-template-columns:repeat(3,1fr)} }
+    .card{
+      background:var(--panel); border:1px solid var(--stroke); border-radius:var(--radius);
+      box-shadow:var(--shadow); padding:18px;
+    }
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card p{margin:0; color:var(--text-dim)}
+    footer{border-top:1px solid var(--stroke); background:var(--panel)}
+    footer .wrap{padding:26px 20px; color:var(--text-dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px}
   </style>
 </head>
 <body>
 
-<header>
-  <div class="wrap nav">
-    <div class="brand"><span class="logo"></span> PerseptionAI</div>
-    <nav id="nav" class="menu">
-      <a href="#projects">Projects</a>
-      <a href="#articles">Articles</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap" style="text-align:center;display:grid;gap:10px;justify-items:center">
-    <span class="pill">Computer Vision • Deep Learning • MLOps</span>
-    <h1>Production-grade computer vision. Built to ship.</h1>
-    <p class="sub">Detection • Tracking • Re-ID • 3D • Optimization (TensorRT / TFLite). I design, train, and deploy systems that run on edge and cloud.</p>
-    <div class="cta">
-      <a class="btn primary" href="#contact">Work With Me</a>
-      <a class="btn" href="#projects">View Projects</a>
+  <!-- NAV -->
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <span class="dot" aria-hidden="true"></span>
+        <a href="#top" style="font-size:18px">PerseptionAI</a>
+      </div>
+      <nav class="links">
+        <a class="active" href="#projects">Projects</a>
+        <a href="#articles">Articles</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-    <div class="kpis">
-      <div class="tile"><div class="num">10+</div><div class="muted">Years in CV/AI</div></div>
-      <div class="tile"><div class="num">25+</div><div class="muted">Models Deployed</div></div>
-      <div class="tile"><div class="num">∞</div><div class="muted">Curiosity</div></div>
-    </div>
-  </div>
-</section>
+  </header>
 
-<div class="trust">
-  <div class="wrap">
-    <span>Trusted by</span>
-    <!-- Replace with your logos -->
-    <img src="/assets/logo1.svg" alt="Client 1" />
-    <img src="/assets/logo2.svg" alt="Client 2" />
-    <img src="/assets/logo3.svg" alt="Client 3" />
-    <img src="/assets/logo4.svg" alt="Client 4" />
-  </div>
-</div>
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <div class="wrap">
+      <span class="pill">Computer Vision • Deep Learning • MLOps</span>
+      <h1>Production-grade computer vision. Built to ship.</h1>
+      <p class="lede">
+        Detection • Tracking • Re-ID • 3D • Optimization (TensorRT / TFLite).
+        I design, train, and deploy systems that run on edge and cloud.
+      </p>
 
-<section id="projects" class="panel">
-  <div class="wrap">
-    <h2 style="margin:0 0 10px">Featured Projects</h2>
-    <p class="muted" style="margin:0 0 14px">Outcome-first case studies. Links to code or write-ups where possible.</p>
-    <div class="grid">
-      <article class="card">
-        <img class="shot" src="/assets/demo-reid.gif" alt="Vehicle Re-ID">
-        <h3>Vehicle Re-Identification</h3>
-        <p class="muted">OSNet • Triplet / CE • Domain Adapt</p>
-        <p>Cross-camera Re-ID with hard mining and INT8 edge deployment. <strong>+7.8 mAP</strong>, <strong>45 FPS</strong> (Jetson Orin).</p>
-      </article>
-      <article class="card">
-        <img class="shot" src="/assets/demo-tracking.gif" alt="MOT">
-        <h3>People Tracking w/ Transformers</h3>
-        <p class="muted">DETR • GNN association • Kalman/IoU</p>
-        <p>Occlusion-robust MOT with online re-id; realtime on A100 and Jetson via TensorRT.</p>
-      </article>
-      <article class="card">
-        <img class="shot" src="/assets/demo-3d.gif" alt="3D & PnP">
-        <h3>3D Pose & PnP Toolkit</h3>
-        <p class="muted">EPnP • Bundle Adjust • Depth priors</p>
-        <p>Geometry-aware components; <strong>2.1× faster</strong> with lower reprojection error.</p>
-      </article>
+      <div class="cta">
+        <a class="btn primary" href="#projects">View Projects</a>
+        <a class="btn" href="#contact">Work With Me</a>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><b>10+</b><span>Years in CV/AI</span></div>
+        <div class="kpi"><b>25+</b><span>Deployed Models</span></div>
+        <div class="kpi"><b>∞</b><span>Curiosity</span></div>
+      </div>
     </div>
   </div>
-</section>
 
-<section id="articles" class="panel-2">
-  <div class="wrap">
-    <h2 style="margin:0 0 10px">Latest Articles</h2>
-    <div class="grid">
-      <article class="card">
-        <h3><a href="#">How I ship real-time tracking at 60 FPS</a></h3>
-        <p class="muted">MLOps • TensorRT • Benchmarking</p>
-        <p>Pipeline notes: data, eval, and the exact optimizations that mattered.</p>
-      </article>
-      <article class="card">
-        <h3><a href="#">Re-ID in the wild: Triplet vs Softmax</a></h3>
-        <p class="muted">Re-ID • Losses • Domain shift</p>
-        <p>Hard mining, augmentations, and what finally moved the needle.</p>
-      </article>
+  <!-- PROJECTS -->
+  <section id="projects" class="alt">
+    <div class="wrap">
+      <h2>Featured Projects</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Real-time Multi-Object Tracking</h3>
+          <p>Edge-optimized tracker (TensorRT) at 60 FPS on Jetson Orin. Robust to occlusion and low light.</p>
+        </div>
+        <div class="card">
+          <h3>Re-ID + Analytics for Retail</h3>
+          <p>Person re-identification with privacy-aware embeddings and heatmaps for dwell/time-in-zone.</p>
+        </div>
+        <div class="card">
+          <h3>3D Pose for Robotics</h3>
+          <p>Keypoint models + IK for grasp planning; sub-50 ms end-to-end with quantization and pruning.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="services" class="panel">
-  <div class="wrap">
-    <h2 style="margin:0 0 10px">Consulting & Services</h2>
-    <div class="grid">
-      <div class="card"><h3>Model Design & Training</h3><p>Custom detection, tracking, Re-ID, segmentation tailored to your data and constraints.</p></div>
-      <div class="card"><h3>Optimization</h3><p>Quantization, pruning, TensorRT / TFLite / ONNXRuntime for edge or server with real benchmarks.</p></div>
-      <div class="card"><h3>Audits & Coaching</h3><p>Architecture reviews, experiment plans, and hands-on team mentoring.</p></div>
+  <!-- ARTICLES -->
+  <section id="articles">
+    <div class="wrap">
+      <h2>Articles</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Tracking under occlusion</h3>
+          <p>Practical tricks for MOT stability: motion priors, re-ID hints, and temporal smoothing.</p>
+        </div>
+        <div class="card">
+          <h3>Toward shippable models</h3>
+          <p>Quantization, TensorRT/TFLite paths, and what to profile before choosing hardware.</p>
+        </div>
+        <div class="card">
+          <h3>Monitoring CV in production</h3>
+          <p>Input drift, alerting, and dataset refresh: an MLOps checklist for vision systems.</p>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="contact" class="panel-2">
-  <div class="wrap">
-    <h2 style="margin:0 0 10px">Get in touch</h2>
-    <div class="grid">
-      <div class="card"><h3>Email</h3><p><a href="mailto:hello@perseptionai.com">hello@perseptionai.com</a></p></div>
-      <div class="card"><h3>Social</h3><p><a href="https://github.com/REPLACE_GITHUB" target="_blank" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/REPLACE_LINKEDIN/" target="_blank" rel="noopener">LinkedIn</a></p></div>
-      <div class="card"><h3>Calendly</h3><p><a href="#">Book a call</a> (optional)</p></div>
+  <!-- SERVICES -->
+  <section id="services" class="alt">
+    <div class="wrap">
+      <h2>Services</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Prototyping → MVP</h3>
+          <p>Fast experiments, success metrics, and an MVP you can demo to stakeholders.</p>
+        </div>
+        <div class="card">
+          <h3>Optimization &amp; Porting</h3>
+          <p>Torch → TensorRT/TFLite, INT8 calibration, latency/throughput trade-offs.</p>
+        </div>
+        <div class="card">
+          <h3>Production Integration</h3>
+          <p>APIs, streaming pipelines, monitoring, retraining loops, and on-device updates.</p>
+        </div>
+      </div>
     </div>
-    <p class="muted" style="margin-top:12px">Reply within 24h • Available for freelance & consulting</p>
-  </div>
-</section>
+  </section>
 
-<footer>© <span id="yy"></span> PerseptionAI</footer>
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <h2>Contact</h2>
+      <div class="grid cols-3">
+        <div class="card">
+          <h3>Email</h3>
+          <p><a href="mailto:hello@perseptionai.com">hello@perseptionai.com</a></p>
+        </div>
+        <div class="card">
+          <h3>GitHub</h3>
+          <p><a href="https://github.com/korcv" target="_blank" rel="noopener">github.com/korcv</a></p>
+        </div>
+        <div class="card">
+          <h3>LinkedIn</h3>
+          <p><a href="https://www.linkedin.com/" target="_blank" rel="noopener">Connect on LinkedIn</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<script>
-  document.getElementById('yy').textContent = new Date().getFullYear();
-  const links=[...document.querySelectorAll('#nav a')];
-  const map=Object.fromEntries(links.map(a=>[a.getAttribute('href').slice(1),a]));
-  const obs=new IntersectionObserver(es=>{
-    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('active')); const id=e.target.id; if(map[id]) map[id].classList.add('active'); }});
-  },{rootMargin:'-40% 0px -55% 0px',threshold:[0,1]});
-  document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
-</script>
+  <footer>
+    <div class="wrap">
+      <span>© <span id="yy"></span> PerseptionAI</span>
+      <span>Built with love for computer vision.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yy').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
