@@ -1,113 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>PerseptionAI — Computer Vision & AI</title>
-  <meta name="description" content="Portfolio, projects, articles, and consulting by a Computer Vision engineer. Detection, Tracking, Re-ID, 3D, and deployment to edge/cloud." />
-  <meta property="og:title" content="PerseptionAI — Computer Vision & AI" />
-  <meta property="og:description" content="Practical vision systems that ship: detection, tracking, re-id, 3D, TensorRT/TFLite." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://perseptionai.com/" />
-  <meta property="og:image" content="https://perseptionai.com/assets/og-image.png" />
-  <link rel="icon" href="/assets/favicon.ico" />
+  <meta name="description" content="Computer Vision engineer building practical systems: Detection, Tracking, Re-ID, 3D, and deployment (TensorRT / TFLite)."/>
+  <link rel="icon" href="/assets/favicon.ico"/>
+
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 
   <style>
     :root{
-      --bg:#0f1222; --muted:#9aa5bd; --text:#e7ecf4;
-      --accent:#7c3aed; --accent2:#22d3ee; --ring:rgba(124,58,237,.35);
-      --max:1100px; --rad:16px;
+      /* Soft-dark system */
+      --bg:#1b2130;          /* page background (not black) */
+      --panel:#1f2636;       /* section default */
+      --panelAlt:#232a3c;    /* alternate section */
+      --card:#273146;        /* cards lift from background */
+      --line:#2f3a52;        /* borders */
+      --muted:#a7b2c9;       /* secondary text */
+      --text:#eef3fb;        /* main text */
+      --accent:#7c3aed;      /* purple */
+      --accent2:#22d3ee;     /* teal  */
+      --ring:rgba(124,58,237,.35);
+      --max:1120px;
+      --rad:16px;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    html,body{margin:0;height:100%}
+    body{
+      background: radial-gradient(1200px 700px at -10% -20%, rgba(34,211,238,.16), transparent),
+                  radial-gradient(900px 600px at 120% 0%, rgba(124,58,237,.14), transparent),
+                  var(--bg);
+      color:var(--text);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+    img{max-width:100%;display:block}
     a{color:var(--accent2);text-decoration:none}
     a:hover{text-decoration:underline}
-    img{max-width:100%;display:block}
 
-    /* Header / nav */
+    /* Layout helpers */
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
+    section{padding:64px 0}
+    .panel{background:var(--panel)}
+    .panel-alt{background:var(--panelAlt)}
+    .stack{display:grid;gap:16px}
+    .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+
+    /* Header */
     header{
       position:sticky;top:0;z-index:20;
-      background:rgba(15,18,34,.65);backdrop-filter:blur(10px);
-      border-bottom:1px solid #20274b
+      background:rgba(27,33,48,.75);backdrop-filter:blur(10px);
+      border-bottom:1px solid var(--line)
     }
-    .wrap{max-width:var(--max);margin:0 auto;padding:0 16px}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.4px}
-    .logo{width:18px;height:18px;border-radius:6px;background:linear-gradient(45deg,var(--accent),var(--accent2));box-shadow:0 0 18px var(--ring)}
-    .menu{display:flex;gap:22px;flex-wrap:wrap}
-    .menu a{color:var(--muted);padding:2px 2px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.35px}
+    .logo{width:18px;height:18px;border-radius:6px;background:linear-gradient(45deg,var(--accent),var(--accent2));box-shadow:0 0 14px var(--ring)}
+    .menu{display:flex;gap:24px;flex-wrap:wrap}
+    .menu a{color:#c7d2ea}
     .menu a.active{color:#fff;font-weight:700}
-    .menu a.active::after{
-      content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;
-      background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px
-    }
     .menu a{position:relative}
+    .menu a.active::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--accent2))}
 
     /* Hero */
-    .hero{padding:96px 0 56px;text-align:center}
-    .hero h1{font-size:clamp(38px,7.5vw,64px);line-height:1.06;letter-spacing:-0.02em;margin:0 0 10px}
-    .sub{color:var(--muted);font-size:18px;max-width:740px;margin:12px auto 0}
+    .hero{padding:96px 0 56px}
     .pill{
-      display:inline-block;margin-bottom:14px;padding:6px 12px;
-      font-size:13.5px;font-weight:600;border-radius:999px;
-      background:rgba(124,58,237,.28);color:#efeaff;border:1px solid rgba(124,58,237,.65);
-      box-shadow:0 2px 10px rgba(124,58,237,.25)
+      display:inline-block;margin-bottom:14px;padding:6px 12px;font-size:13.5px;font-weight:600;
+      border-radius:999px;background:#3a2f67b3;color:#efeaff;border:1px solid rgba(124,58,237,.6)
     }
-    .cta{margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+    h1{font-size:clamp(38px,7vw,60px);line-height:1.07;letter-spacing:-0.02em;margin:0 0 10px}
+    .sub{color:var(--muted);font-size:18px;max-width:760px}
+    .hero .wrap{display:grid;gap:14px;justify-items:center;text-align:center}
+    .cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:6px}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:16px 22px;font-size:17px;font-weight:600;border-radius:14px;
-      background:#151a31;border:1px solid rgba(255,255,255,.06);color:#e6ebf1;transition:filter .2s ease,transform .2s ease
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:15px 20px;border-radius:14px;font-weight:700;
+      background:#222a3e;border:1px solid rgba(255,255,255,.06);color:#e8eef9;
+      transition:transform .15s ease,filter .15s ease
     }
     .btn.primary{
-      background:linear-gradient(90deg,var(--accent),var(--accent2));
-      border-color:transparent;color:#0c0f1e;box-shadow:0 6px 16px rgba(34,211,238,.25),0 2px 6px rgba(0,0,0,.25)
+      background:linear-gradient(90deg,var(--accent),var(--accent2));border:none;color:#0f1524;
+      box-shadow:0 10px 24px rgba(34,211,238,.18),0 7px 16px rgba(0,0,0,.25)
     }
     .btn:active{transform:scale(.99)}
 
-    section{padding:44px 0}
-    h2{font-size:clamp(22px,3.2vw,28px);letter-spacing:-0.01em;margin:0 0 8px}
-
-    /* KPI tiles */
-    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
-    .tile{padding:14px 16px;background:#111427;border:1px solid #1f2546;border-radius:12px;text-align:center}
+    /* KPI tiles (lighter than bg) */
+    .kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
+    .tile{background:#2a344b;border:1px solid #344060;border-radius:14px;text-align:center;padding:14px 16px}
     .num{font-size:24px;font-weight:800}
-    .tag{font-size:12px;color:#9fb1d9}
+    .muted{color:#a6b3d1;font-size:12px}
 
-    /* Cards (simpler, content-first) */
-    .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
-    .card{background:#111427;border:1px solid #1f2546;border-radius:var(--rad);padding:18px}
+    /* Cards */
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:18px}
     .card h3{margin:0 0 8px}
-    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid #28305a;margin-bottom:10px}
+    .tag{color:#9fb1d9;font-size:12px}
+    .shot{width:100%;height:210px;object-fit:cover;border-radius:12px;border:1px solid #334061;margin-bottom:10px}
 
     /* Articles: list-like on mobile, 2-col on desktop */
     #articles .grid{grid-template-columns:1fr}
-    @media (min-width:860px){#articles .grid{grid-template-columns:1fr 1fr}}
-    @media (max-width:480px){
-      .btn{width:100%}
-      .menu{row-gap:8px}
-      .hero{padding:80px 0 44px}
-    }
+    @media (min-width:900px){ #articles .grid{grid-template-columns:1fr 1fr} }
 
-    footer{padding:28px 0;border-top:1px solid #1e2547;color:#8f98ad}
-    .social{display:flex;gap:14px;justify-content:center}
+    /* Footer */
+    footer{padding:28px 0;border-top:1px solid var(--line);color:#a4afc7;text-align:center}
+
+    /* Mobile polish */
+    @media (max-width:520px){
+      .btn{width:100%}
+      .hero{padding:84px 0 46px}
+    }
   </style>
 
+  <!-- Basic schema for SEO -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":"Person",
     "name":"PerseptionAI",
-    "url":"https://perseptionai.com",
     "jobTitle":"Computer Vision Engineer",
-    "sameAs":["https://github.com/REPLACE_WITH_USERNAME","https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/"]
+    "url":"https://perseptionai.com",
+    "sameAs":[
+      "https://github.com/REPLACE_WITH_USERNAME",
+      "https://www.linkedin.com/in/REPLACE_WITH_LINKEDIN/"
+    ]
   }
   </script>
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="wrap nav">
       <div class="brand"><span class="logo"></span> PerseptionAI</div>
@@ -120,9 +141,9 @@
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <section class="hero" id="top">
+  <!-- HERO (soft, airy) -->
+  <section class="hero">
+    <div class="wrap">
       <span class="pill">Computer Vision • Deep Learning • MLOps</span>
       <h1>From research to production-grade vision systems.</h1>
       <p class="sub">Detection • Tracking • Re-ID • 3D • Optimization (TensorRT / TFLite) — practical AI that ships.</p>
@@ -131,72 +152,80 @@
         <a class="btn" href="#contact">Hire Me</a>
       </div>
       <div class="kpi">
-        <div class="tile"><div class="num">10+</div><div class="tag">Years in CV/AI</div></div>
-        <div class="tile"><div class="num">25+</div><div class="tag">Deployed Models</div></div>
-        <div class="tile"><div class="num">∞</div><div class="tag">Curiosity</div></div>
+        <div class="tile"><div class="num">10+</div><div class="muted">Years in CV/AI</div></div>
+        <div class="tile"><div class="num">25+</div><div class="muted">Deployed Models</div></div>
+        <div class="tile"><div class="num">∞</div><div class="muted">Curiosity</div></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <h2>Featured Projects</h2>
-      <p class="tag">Problem → Approach → Result. Short, scannable, with links.</p>
-      <div class="grid" style="margin-top:12px">
+  <!-- PROJECTS (lighter panel) -->
+  <section class="panel">
+    <div class="wrap">
+      <h2 style="margin:0 0 8px">Featured Projects</h2>
+      <p class="tag">Problem → Approach → Result. Short and scannable, with links.</p>
+      <div class="grid" style="margin-top:14px">
         <article class="card">
-          <img class="shot" src="assets/demo-reid.gif" alt="Demo: vehicle re-identification"/>
+          <img class="shot" src="/assets/demo-reid.gif" alt="Demo: vehicle re-identification"/>
           <h3>Vehicle Re-Identification</h3>
-          <p class="tag">OSNet • Triplet/CE • Domain Adaptation</p>
-          <p>Cross-camera Re-ID with hard mining and on-edge INT8 deployment.</p>
+          <p class="tag">OSNet • Triplet/CE • Domain Adapt</p>
+          <p>Cross-camera Re-ID with hard mining and INT8 edge deployment.</p>
           <p><a href="#">Case study</a> · <a href="#">GitHub</a></p>
         </article>
         <article class="card">
-          <img class="shot" src="assets/demo-tracking.gif" alt="Demo: multi-person tracking"/>
+          <img class="shot" src="/assets/demo-tracking.gif" alt="Demo: multi-person tracking"/>
           <h3>People Tracking w/ Transformers</h3>
           <p class="tag">DETR • GNN association • Kalman/IoU fusion</p>
-          <p>Occlusion-robust MOT with online re-id, real-time on A100 & Jetson.</p>
+          <p>Occlusion-robust MOT with online re-id; real-time on A100 & Jetson.</p>
           <p><a href="#">Article</a> · <a href="#">GitHub</a></p>
         </article>
         <article class="card">
-          <img class="shot" src="assets/demo-pnp.gif" alt="Demo: 3D pose & PnP"/>
+          <img class="shot" src="/assets/demo-pnp.gif" alt="Demo: 3D pose & PnP"/>
           <h3>3D Pose & PnP Toolkit</h3>
           <p class="tag">EPnP • BA • Depth priors</p>
           <p>Geometry-aware PnP components; fast, stable camera-pose estimation.</p>
           <p><a href="#">Docs</a> · <a href="#">GitHub</a></p>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ARTICLES -->
-    <section id="articles">
-      <h2>Latest Articles</h2>
-      <div class="grid" style="margin-top:12px">
+  <!-- ARTICLES (alternate tone) -->
+  <section class="panel-alt" id="articles">
+    <div class="wrap">
+      <h2 style="margin:0 0 8px">Latest Articles</h2>
+      <div class="grid" style="margin-top:14px">
         <article class="card">
           <h3><a href="#">How I ship real-time tracking at 60 FPS</a></h3>
           <p class="tag">MLOps • TensorRT • Benchmarking</p>
-          <p>Practical pipeline notes: data, eval, and the exact optimizations that matter.</p>
+          <p>Pipeline notes: data, eval, and the exact optimizations that mattered.</p>
         </article>
         <article class="card">
-          <h3><a href="#">Re-ID in the wild: triplet vs softmax</a></h3>
+          <h3><a href="#">Re-ID in the wild: Triplet vs Softmax</a></h3>
           <p class="tag">Re-ID • Losses • Domain shift</p>
           <p>Hard mining, augmentations, and what finally moved the needle.</p>
         </article>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section id="services">
-      <h2>Consulting & Services</h2>
-      <div class="grid" style="margin-top:12px">
-        <div class="card"><h3>Model Design & Training</h3><p>Custom detection, tracking, Re-ID, and segmentation models tailored to your data.</p></div>
-        <div class="card"><h3>Optimization</h3><p>Quantization, pruning, deployment to TensorRT/TFLite/ONNXRuntime for edge or server.</p></div>
+  <!-- SERVICES (lighter panel again) -->
+  <section class="panel" id="services">
+    <div class="wrap">
+      <h2 style="margin:0 0 8px">Consulting & Services</h2>
+      <div class="grid" style="margin-top:14px">
+        <div class="card"><h3>Model Design & Training</h3><p>Custom detection, tracking, Re-ID, and segmentation tailored to your data.</p></div>
+        <div class="card"><h3>Optimization</h3><p>Quantization, pruning, TensorRT/TFLite/ONNXRuntime for edge or server with real benchmarks.</p></div>
         <div class="card"><h3>Audits & Coaching</h3><p>Architecture reviews, experiment plans, and hands-on team mentoring.</p></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- CONTACT -->
-    <section id="contact">
-      <h2>Get in touch</h2>
-      <div class="grid" style="margin-top:12px">
+  <!-- CONTACT (alt tone) -->
+  <section class="panel-alt" id="contact">
+    <div class="wrap">
+      <h2 style="margin:0 0 8px">Get in touch</h2>
+      <div class="grid" style="margin-top:14px">
         <div class="card">
           <h3>Email</h3>
           <p><a href="mailto:hello@perseptionai.com">hello@perseptionai.com</a></p>
@@ -212,13 +241,11 @@
         </div>
       </div>
       <p class="tag" style="margin-top:14px">Reply within 24h • Available for freelance & consulting</p>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer>
-    <div class="wrap">
-      <div class="social">© <span id="y"></span> PerseptionAI · <a href="#">Privacy</a></div>
-    </div>
+    © <span id="y"></span> PerseptionAI · <a href="#">Privacy</a>
   </footer>
 
   <script>
@@ -226,17 +253,17 @@
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // Active nav link on scroll
-    const sections = [...document.querySelectorAll('main section')];
-    const links = [...document.querySelectorAll('#nav a')];
-    const map = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
-    const obs = new IntersectionObserver(entries=>{
-      entries.forEach(e=>{
+    const sections=[...document.querySelectorAll('section[id]')];
+    const links=[...document.querySelectorAll('#nav a')];
+    const map=Object.fromEntries(links.map(a=>[a.getAttribute('href').slice(1),a]));
+    const obs=new IntersectionObserver(es=>{
+      es.forEach(e=>{
         if(e.isIntersecting){
           links.forEach(l=>l.classList.remove('active'));
-          const id = e.target.id; if(map[id]) map[id].classList.add('active');
+          const id=e.target.id; if(map[id]) map[id].classList.add('active');
         }
       });
-    }, {rootMargin:'-40% 0px -55% 0px', threshold:[0,1]});
+    },{rootMargin:'-40% 0px -55% 0px',threshold:[0,1]});
     sections.forEach(s=>obs.observe(s));
   </script>
 </body>
